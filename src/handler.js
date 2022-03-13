@@ -3,21 +3,19 @@ const notes = require("./notes");
 const {nanoid} = require('nanoid');
 
 const addNoteHandler = (request, h) => {
-    const {title, body, tags} = request.payload;
+    const {title, tags, body} = request.payload;
 
     const id = nanoid(16);
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
 
     const newNote = {
-        title, tags, body, createdAt, updatedAt,
+      title, tags, body, id, createdAt, updatedAt,
     };
 
     notes.push(newNote);
 
     const isSuccess = notes.filter((note) => note.id === id).length > 0;
-
-  
  
   if (isSuccess) {
     const response = h.response({
